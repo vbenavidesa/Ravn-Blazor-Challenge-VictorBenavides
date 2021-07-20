@@ -1,0 +1,12 @@
+D:\Software\RAVN\RavnChallenge\RavnChallenge\Shared\bin\Debug\net5.0\RavnChallenge.Shared.deps.json
+D:\Software\RAVN\RavnChallenge\RavnChallenge\Shared\bin\Debug\net5.0\RavnChallenge.Shared.dll
+D:\Software\RAVN\RavnChallenge\RavnChallenge\Shared\bin\Debug\net5.0\ref\RavnChallenge.Shared.dll
+D:\Software\RAVN\RavnChallenge\RavnChallenge\Shared\bin\Debug\net5.0\RavnChallenge.Shared.pdb
+D:\Software\RAVN\RavnChallenge\RavnChallenge\Shared\obj\Debug\net5.0\RavnChallenge.Shared.csproj.AssemblyReference.cache
+D:\Software\RAVN\RavnChallenge\RavnChallenge\Shared\obj\Debug\net5.0\RavnChallenge.Shared.GeneratedMSBuildEditorConfig.editorconfig
+D:\Software\RAVN\RavnChallenge\RavnChallenge\Shared\obj\Debug\net5.0\RavnChallenge.Shared.AssemblyInfoInputs.cache
+D:\Software\RAVN\RavnChallenge\RavnChallenge\Shared\obj\Debug\net5.0\RavnChallenge.Shared.AssemblyInfo.cs
+D:\Software\RAVN\RavnChallenge\RavnChallenge\Shared\obj\Debug\net5.0\RavnChallenge.Shared.csproj.CoreCompileInputs.cache
+D:\Software\RAVN\RavnChallenge\RavnChallenge\Shared\obj\Debug\net5.0\RavnChallenge.Shared.dll
+D:\Software\RAVN\RavnChallenge\RavnChallenge\Shared\obj\Debug\net5.0\ref\RavnChallenge.Shared.dll
+D:\Software\RAVN\RavnChallenge\RavnChallenge\Shared\obj\Debug\net5.0\RavnChallenge.Shared.pdb

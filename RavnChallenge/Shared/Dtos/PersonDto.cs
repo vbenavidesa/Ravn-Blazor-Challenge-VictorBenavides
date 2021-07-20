@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RavnChallenge.Shared.Dtos
 {
-    class PersonDto
+    public class PersonDto : Entity
     {
         public string Name { get; set; }
         public string Height { get; set; }
