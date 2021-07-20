@@ -1,37 +1,37 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using RavnChallenge.Server.Interfaces;
+using RavnChallenge.Shared.Dtos;
 using System.Threading.Tasks;
 
 namespace RavnChallenge.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("/people")]
     public class PeopleController : ControllerBase
     {
         #region Constructor for dependency injection
-        private readonly IConfiguration configuration;
-
-        public PeopleController(IConfiguration configuration)
+        private readonly IRepository repository;
+        public PeopleController(IRepository repository)
         {
-            this.configuration = configuration;
+            this.repository = repository;
         }
         #endregion
 
-        #region public async Task<IActionResult> GetPerson(long id)
-        public async Task<IActionResult> GetPerson(long id)
+        #region public IActionResult GetPerson(long id)
+        [HttpGet("{id}")]
+        public IActionResult GetPerson(string id)
         {
-            return Ok();
+            var result = repository.GetSingle<PersonDto>("people/", id);
+            return Ok(result);
         }
         #endregion
 
-        #region public async Task<IActionResult> GetPeople()
-        public async Task<IActionResult> GetPeople()
+        #region public IActionResult GetPeople()
+        [HttpGet]
+        public IActionResult GetPeople(string pageNumber = "1")
         {
-
-            return Ok();
+            var result = repository.GetAllPaginated<PersonDto>("people/", pageNumber);
+            return Ok(result);
         }
         #endregion
     }
