@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RavnChallenge.Server.Interfaces;
 using RavnChallenge.Server.Repos;
+using System;
 using System.Linq;
 
 namespace RavnChallenge.Server
@@ -26,8 +27,14 @@ namespace RavnChallenge.Server
         {
             services.AddScoped<IRepository, Repository>();
 
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(40);
+            });
+
             services.AddControllersWithViews();
             services.AddRazorPages();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +51,7 @@ namespace RavnChallenge.Server
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSession();
 
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();

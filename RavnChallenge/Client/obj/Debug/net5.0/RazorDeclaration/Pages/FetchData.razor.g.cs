@@ -89,6 +89,13 @@ using RavnChallenge.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "D:\Software\RAVN\RavnChallenge\RavnChallenge\Client\Pages\FetchData.razor"
+using RavnChallenge.Shared.Dtos;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/fetchdata")]
     public partial class FetchData : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -98,13 +105,15 @@ using RavnChallenge.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 38 "D:\Software\RAVN\RavnChallenge\RavnChallenge\Client\Pages\FetchData.razor"
+#line 35 "D:\Software\RAVN\RavnChallenge\RavnChallenge\Client\Pages\FetchData.razor"
        
     private WeatherForecast[] forecasts;
+    private EntityResult<PersonDto> data;
 
     protected override async Task OnInitializedAsync()
     {
         forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        data = await Http.GetFromJsonAsync<EntityResult<PersonDto>>("people");
     }
 
 
