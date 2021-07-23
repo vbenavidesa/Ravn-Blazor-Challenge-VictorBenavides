@@ -123,7 +123,7 @@ using RavnChallenge.Shared.Dtos;
         menu = new List<PersonDto>();
         try
         {
-            data = await Http.GetFromJsonAsync<EntityResult<PersonDto>>("peoples/?pageNumber=1");
+            data = await Http.GetFromJsonAsync<EntityResult<PersonDto>>("people/?pageNumber=1");
         }
         catch (Exception ex)
         {

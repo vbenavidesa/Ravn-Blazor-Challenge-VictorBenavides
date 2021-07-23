@@ -141,8 +141,13 @@ namespace RavnChallenge.Server.Controllers
         #region public List<T> GetFullData<T>(string entityName) where T : Entity
         public List<T> GetFullData<T>(string entityName) where T : Entity
         {
+            // Create a list of an entity
             List<T> result = new List<T>();
+
+            // Get first set of data for entity
             var data = repository.GetAllPaginated<T>(entityName, "1");
+
+            // Add the list of results
             result.AddRange(data.Results);
             var countLimit = Math.Ceiling((Convert.ToDouble(data.Count) / 10));
             for (int i = 2; i <= countLimit; i++)
