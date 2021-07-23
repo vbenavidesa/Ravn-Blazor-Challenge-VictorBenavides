@@ -48,3 +48,8 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+h2 {
+    font-size: 17pt;
+    color: rgba(0, 0, 0, 1);
+}

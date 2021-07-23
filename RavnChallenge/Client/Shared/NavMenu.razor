@@ -1,37 +1,77 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">RavnChallenge</a>
+﻿@using RavnChallenge.Shared
+@using RavnChallenge.Shared.Dtos
+@inject HttpClient Http
+
+<div class="top-row pl-4 navbar navbar-dark" style="background-image: none; background-color: black">
+    <a class="navbar-brand" href="" style="color:white">RavnChallenge</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </li>
-    </ul>
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu" style="background-image: none; background-color: white">
+    @if (haserror == true)
+    {
+        <p style="text-align: center; color: #EC5757"><em>Failed to load data</em></p>
+    }
+    else
+    {
+        @if (data == null)
+        {
+            <p style="text-align: center; color: #121212; font-size: 16px"><em>Loading...</em></p>
+        }
+        else
+        {
+            <ul class="nav flex-column" style="background-image: none">
+                @foreach (var dto in menu)
+                {
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="@dto.Url">
+                            <p style="color: #333333">@dto.Name</p>
+                        </NavLink>
+                    </li>
+                }
+            </ul>
+            <div style="text-align: center">
+                <button class="btn btn-primary" @onclick="LoadMore">
+                    Load more
+                </button>
+            </div>
+        }
+    }
 </div>
 
 @code {
     private bool collapseNavMenu = true;
-
+    private bool haserror = false;
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private EntityResult<PersonDto> data;
+    private List<PersonDto> menu;
+
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        menu = new List<PersonDto>();
+        try
+        {
+            data = await Http.GetFromJsonAsync<EntityResult<PersonDto>>("peoples/?pageNumber=1");
+        }
+        catch (Exception ex)
+        {
+
+            haserror = true;
+        }
+        menu.AddRange(data.Results);
+    }
+
+    private async void LoadMore()
+    {
+        data = await Http.GetFromJsonAsync<EntityResult<PersonDto>>("people/?pageNumber=" + data.NextPageNo);
+        menu.AddRange(data.Results);
     }
 }

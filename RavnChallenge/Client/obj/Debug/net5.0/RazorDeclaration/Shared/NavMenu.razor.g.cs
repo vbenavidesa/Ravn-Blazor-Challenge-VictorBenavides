@@ -82,6 +82,20 @@ using RavnChallenge.Client.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 1 "D:\Software\RAVN\RavnChallenge\RavnChallenge\Client\Shared\NavMenu.razor"
+using RavnChallenge.Shared;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "D:\Software\RAVN\RavnChallenge\RavnChallenge\Client\Shared\NavMenu.razor"
+using RavnChallenge.Shared.Dtos;
+
+#line default
+#line hidden
+#nullable disable
     public partial class NavMenu : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -90,20 +104,45 @@ using RavnChallenge.Client.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 28 "D:\Software\RAVN\RavnChallenge\RavnChallenge\Client\Shared\NavMenu.razor"
+#line 44 "D:\Software\RAVN\RavnChallenge\RavnChallenge\Client\Shared\NavMenu.razor"
        
     private bool collapseNavMenu = true;
-
+    private bool haserror = false;
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private EntityResult<PersonDto> data;
+    private List<PersonDto> menu;
+
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
 
+    protected override async Task OnInitializedAsync()
+    {
+        menu = new List<PersonDto>();
+        try
+        {
+            data = await Http.GetFromJsonAsync<EntityResult<PersonDto>>("peoples/?pageNumber=1");
+        }
+        catch (Exception ex)
+        {
+
+            haserror = true;
+        }
+        menu.AddRange(data.Results);
+    }
+
+    private async void LoadMore()
+    {
+        data = await Http.GetFromJsonAsync<EntityResult<PersonDto>>("people/?pageNumber=" + data.NextPageNo);
+        menu.AddRange(data.Results);
+    }
+
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
     }
 }
 #pragma warning restore 1591

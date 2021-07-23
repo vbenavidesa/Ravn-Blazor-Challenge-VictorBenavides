@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using RavnChallenge.Server.Helpers;
 using RavnChallenge.Server.Interfaces;
 using RavnChallenge.Shared;
 using RavnChallenge.Shared.Dtos;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RavnChallenge.Server.Controllers
 {
@@ -27,7 +24,48 @@ namespace RavnChallenge.Server.Controllers
         [HttpGet("{id}")]
         public IActionResult GetPerson(string id)
         {
+            // Initialize the lists
+            List<PlanetDto> planets = new List<PlanetDto>();
+            List<VehicleDto> vehicles = new List<VehicleDto>();
+            List<SpecieDto> species = new List<SpecieDto>();
+
+            // Get data from stored in session
+            planets = SessionHelper.GetObjectFromJson<List<PlanetDto>>(HttpContext.Session, "planets");
+            vehicles = SessionHelper.GetObjectFromJson<List<VehicleDto>>(HttpContext.Session, "vehicles");
+            species = SessionHelper.GetObjectFromJson<List<SpecieDto>>(HttpContext.Session, "species");
+
             var result = repository.GetSingle<PersonDto>("people/", id);
+
+            // Set the vehicles on the array
+            List<string> newVehicles = new List<string>();
+            foreach (string thisVehicle in result.Vehicles)
+            {
+                var _vehicle = vehicles.Find(v => v.Url == thisVehicle);
+                newVehicles.Add(_vehicle.Name);
+            }
+            result.Vehicles = newVehicles;
+
+            // Set the homeworld planet of the character
+            var _homeworld = planets.Find(p => p.Url == result.Homeworld);
+            result.Homeworld = _homeworld.Name;
+
+            // Set the species for the character, has a default value of human if its empty
+            List<string> newSpecies = new List<string>();
+            if (result.Species.Count == 0)
+            {
+                newSpecies.Add("Human");
+                result.Species = newSpecies;
+            }
+            else
+            {
+                foreach (string thisSpecie in result.Species)
+                {
+                    var _specie = species.Find(v => v.Url == thisSpecie);
+                    newSpecies.Add(_specie.Name);
+                }
+                result.Species = newSpecies;
+            }
+
             return Ok(result);
         }
         #endregion
@@ -94,6 +132,7 @@ namespace RavnChallenge.Server.Controllers
                     }
                     item.Species = newSpecies;
                 }
+                item.Url = item.Url.Replace("https://swapi.dev/api/people/", "fetchdata/");
             }
             return Ok(result);
         }

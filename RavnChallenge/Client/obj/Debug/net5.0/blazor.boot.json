@@ -196,11 +196,12 @@
       "netstandard.dll": "sha256-vJpyW6cE\/+ewo5rVB5JUu9x2f8aLnqoIazac8ef5FzQ=",
       "System.Private.CoreLib.dll": "sha256-CvQTDivHJZAtRXyCbDa5f5+okJt39WRFrZSmXTMSau0=",
       "RavnChallenge.Shared.dll": "sha256-B8ikh7Q9OAlO5Y5Zmdo7V2VUgbkT0UyMVa47iT1BwnQ=",
-      "RavnChallenge.Client.dll": "sha256-4\/KIsRUC6noP6WL0Gb1lOnIHVUE5EfxrfaSC8lEPhag="
+      "RavnChallenge.Client.dll": "sha256-d0e9voPtyG04wtAT+8FOVIqwO5P0qRb1KuAbpHLOI9o="
     },
     "lazyAssembly": null,
     "pdb": {
-      "RavnChallenge.Client.pdb": "sha256-dAOLEwEEnq7pWr+R+xIlm3mWI3AOP4w9NgOcs16UKZk="
+      "RavnChallenge.Shared.pdb": "sha256-a9DuUWFUxvHfB0+hPO08xt\/7BOnWaoEOBWvFluB01fg=",
+      "RavnChallenge.Client.pdb": "sha256-1djCUyQVC9mcng2QSdRFyleE4JEAdHH\/89WjlOewRg4="
     },
     "runtime": {
       "dotnet.timezones.blat": "sha256-2OdnPsDgJyoSaSlvebGMRd2MxC+4UIqparqVrQZAFDE=",

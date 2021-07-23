@@ -1,45 +1,70 @@
-﻿@page "/fetchdata"
+﻿@page "/fetchdata/{id}"
 @using RavnChallenge.Shared
-@using RavnChallenge.Shared.Dtos 
+@using RavnChallenge.Shared.Dtos
 @inject HttpClient Http
 
-<h1>Weather forecast</h1>
-
-<p>This component demonstrates fetching data from the server.</p>
-
-@if (forecasts == null)
+@if (data == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var dto in data.Results)
-            {
-                <tr>
-                    <td>@dto.Name</td>
-                    <td>@dto.Species from @dto.Homeworld</td>
+    <div style="margin-left: 10%; margin-right: 10%">
+        <table class="table">
+            <thead>
+                <tr style="padding-top: 32px">
+                    <th style="color: #121212; font-size: 16px; width: 85%">General Information</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="color: #828282; font-size: 16px">Eye Color</td>
+                    <td style="color: #333333; font-size: 16px">@data.Eye_color</td>
+                </tr>
+                <tr>
+                    <td style="color: #828282; font-size: 16px">Hair Color</td>
+                    <td style="color: #333333; font-size: 16px">@data.Hair_color</td>
+                </tr>
+                <tr>
+                    <td style="color: #828282; font-size: 16px">Skin Color</td>
+                    <td style="color: #333333; font-size: 16px">@data.Skin_color</td>
+                </tr>
+                <tr>
+                    <td style="color: #828282; font-size: 16px">Birth Year</td>
+                    <td style="color: #333333; font-size: 16px">@data.Birth_year</td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <br />
+        <table class="table">
+            <thead>
+                <tr style="padding-top: 32px">
+                    <th style="color: #121212; font-size: 16px"><strong>Vehicles</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (string item in data.Vehicles)
+                {
+                    <tr>
+                        <td style="color: #828282; font-size: 16px">@item</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 
 @code {
-    private WeatherForecast[] forecasts;
-    private EntityResult<PersonDto> data;
+    private PersonDto data;
 
-    protected override async Task OnInitializedAsync()
+    [Parameter]
+    public string Id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
-        data = await Http.GetFromJsonAsync<EntityResult<PersonDto>>("people");
+        data = await Http.GetFromJsonAsync<PersonDto>("people/" + Id);
     }
 
 }
